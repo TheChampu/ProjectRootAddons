@@ -15,6 +15,9 @@
 import os
 import subprocess
 from datetime import datetime
+from pathlib import Path
+
+from contextlib import suppress
 
 import speech_recognition as sr
 from gtts import gTTS
@@ -41,16 +44,16 @@ async def _(event):
         return
     text = text.strip()
     lan = lan.strip()
-    if not os.path.isdir("downloads/"):
-        os.makedirs("downloads/")
-    required_file_name = "downloads/voice.ogg"
+    download_dir = Path("downloads")
+    download_dir.mkdir(parents=True, exist_ok=True)
+    required_file_name = download_dir / "voice.ogg"
     try:
         tts = gTTS(text, lang=lan)
-        tts.save(required_file_name)
+        tts.save(str(required_file_name))
         command_to_execute = [
             "ffmpeg",
             "-i",
-            required_file_name,
+            str(required_file_name),
             "-map",
             "0:a",
             "-codec:a",
@@ -59,21 +62,23 @@ async def _(event):
             "100k",
             "-vbr",
             "on",
-            required_file_name + ".opus",
+            str(required_file_name) + ".opus",
         ]
         try:
             subprocess.check_output(command_to_execute, stderr=subprocess.STDOUT)
         except (subprocess.CalledProcessError, NameError, FileNotFoundError) as exc:
             await event.eor(str(exc))
         else:
-            os.remove(required_file_name)
-            required_file_name = required_file_name + ".opus"
+            with suppress(FileNotFoundError):
+                os.remove(required_file_name)
+            required_file_name = Path(str(required_file_name) + ".opus")
         end = datetime.now()
         ms = (end - start).seconds
         await event.reply(
-            file=required_file_name,
+            file=str(required_file_name),
         )
-        os.remove(required_file_name)
+        with suppress(FileNotFoundError):
+            os.remove(required_file_name)
         await eod(event, "Processed {} ({}) in {} seconds!".format(text[0:97], lan, ms))
     except Exception as e:
         await event.eor(str(e))
@@ -85,16 +90,23 @@ async def speec_(e):
     if not (reply and reply.media):
         return await eod(e, "`Reply to Audio-File..`")
     # Not Hard Checking File Types
-    re = await reply.download_media()
-    fn = re + ".wav"
-    await bash(f'ffmpeg -i "{re}" -vn "{fn}"')
-    with sr.AudioFile(fn) as source:
-        audio = reco.record(source)
+    download_dir = Path("downloads")
+    download_dir.mkdir(parents=True, exist_ok=True)
+    re = await reply.download_media(file=str(download_dir))
+    re_path = Path(re)
+    fn = Path(str(re_path) + ".wav")
     try:
-        text = reco.recognize_google(audio, language="en-IN")
-    except Exception as er:
-        return await e.eor(str(er))
-    out = "**Extracted Text :**\n `" + text + "`"
-    await e.eor(out)
-    os.remove(fn)
-    os.remove(re)
+        await bash(f'ffmpeg -i "{re_path}" -vn "{fn}"')
+        with sr.AudioFile(str(fn)) as source:
+            audio = reco.record(source)
+        try:
+            text = reco.recognize_google(audio, language="en-IN")
+        except Exception as er:
+            return await e.eor(str(er))
+        out = "**Extracted Text :**\n `" + text + "`"
+        await e.eor(out)
+    finally:
+        with suppress(FileNotFoundError):
+            os.remove(fn)
+        with suppress(FileNotFoundError):
+            os.remove(re_path)
