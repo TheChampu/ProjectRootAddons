@@ -1,5 +1,3 @@
-
-
 """
 ✘ To Search Messages in chat easily :)
 

@@ -1,0 +1,142 @@
+04/06/2026, 14:05:55 | pyUltLogs [INFO] : 
+                    -----------------------------------
+                            Starting Deployment
+                    -----------------------------------
+    
+04/06/2026, 14:05:55 | pyUltLogs [INFO] : Python version - 3.14.2
+04/06/2026, 14:05:55 | pyUltLogs [INFO] : pyChampu Version - 2026.04.03
+04/06/2026, 14:05:55 | pyUltLogs [INFO] : Telethon Version - 1.42.0 [Layer: 216]
+04/06/2026, 14:05:55 | pyUltLogs [INFO] : Champu Version - 2.1.2 [local]
+04/06/2026, 14:06:29 | pyUltLogs [INFO] : Connecting to Redis...
+04/06/2026, 14:06:29 | pyUltLogs [INFO] : Connected to Redis Successfully!
+04/06/2026, 14:06:30 | pyUltLogs [INFO] : Trying to login.
+04/06/2026, 14:06:30 | Telethon.network.mtprotosender [INFO] : Connecting to 149.154.167.91:443/TcpFull...
+04/06/2026, 14:06:31 | Telethon.network.mtprotosender [INFO] : Connection to 149.154.167.91:443/TcpFull complete!
+04/06/2026, 14:06:32 | pyUltLogs [INFO] : Logged in as ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
+04/06/2026, 14:06:32 | pyUltLogs [INFO] : Trying to login.
+04/06/2026, 14:06:32 | Telethon.network.mtprotosender [INFO] : Connecting to 149.154.167.91:443/TcpFull...
+04/06/2026, 14:06:32 | Telethon.network.mtprotosender [INFO] : Connection to 149.154.167.91:443/TcpFull complete!
+04/06/2026, 14:06:34 | pyUltLogs [INFO] : Logged in as @ItsMyUserbot
+04/06/2026, 14:06:42 | pyUltLogs [INFO] : Initialising...
+04/06/2026, 14:06:45 | pyUltLogs [INFO] : • Installing Official Plugins || Count : 83 •
+04/06/2026, 14:06:56 | apscheduler.scheduler [INFO] : Adding job tentatively -- it will be properly scheduled when the scheduler starts
+04/06/2026, 14:06:56 | apscheduler.scheduler [INFO] : Adding job tentatively -- it will be properly scheduled when the scheduler starts
+04/06/2026, 14:06:56 | apscheduler.scheduler [INFO] : Added job "close_grp" to job store "default"
+04/06/2026, 14:06:56 | apscheduler.scheduler [INFO] : Added job "open_grp" to job store "default"
+04/06/2026, 14:06:56 | apscheduler.scheduler [INFO] : Scheduler started
+04/06/2026, 14:07:10 | pyUltLogs [WARNING] : Failed to pull latest addons; continuing with current checkout.
+04/06/2026, 14:07:11 | pyUltLogs [INFO] : • Installing Addons Plugins || Count : 0 •
+04/06/2026, 14:07:16 | pyUltLogs [INFO] : Took 1m:20s to start •CHAMPU•
+04/06/2026, 14:07:16 | pyUltLogs [INFO] : 
+            ----------------------------------------------------------------------
+                Champu has been deployed! Visit @TheChampu for updates!!
+            ----------------------------------------------------------------------
+    
+04/06/2026, 14:07:41 | pyUltLogs [WARNING] : Primary audio download failed, trying mp3 fallback: No module named 'pyUltroid'
+04/06/2026, 14:07:51 | pyUltLogs [ERROR] : No module named 'pyUltroid'
+Traceback (most recent call last):
+  File "C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\plugins\youtube.py", line 203, in _download_audio_with_fallback
+    return await download_yt(event, url, ytd)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\pyChampu\fns\ytdl.py", line 295, in download_yt
+    res, _ = await event.client.fast_uploader(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        file, show_progress=True, event=event, to_delete=True
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\pyChampu\startup\BaseClient.py", line 132, in fast_uploader
+    from pyUltroid.fns.FastTelethon import upload_file
+ModuleNotFoundError: No module named 'pyUltroid'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\plugins\youtube.py", line 300, in download_from_youtube_
+    await _download_audio_with_fallback(xx, url, ytd)
+  File "C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\plugins\youtube.py", line 219, in _download_audio_with_fallback
+    return await download_yt(event, url, fallback)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\pyChampu\fns\ytdl.py", line 295, in download_yt
+    res, _ = await event.client.fast_uploader(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        file, show_progress=True, event=event, to_delete=True
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\pyChampu\startup\BaseClient.py", line 132, in fast_uploader
+    from pyUltroid.fns.FastTelethon import upload_file
+ModuleNotFoundError: No module named 'pyUltroid'
+04/06/2026, 14:20:52 | Telethon.client.updates [INFO] : Got difference for channel 3655192189 updates
+04/06/2026, 14:22:43 | Telethon.client.updates [INFO] : Got difference for channel 3402313707 updates
+04/06/2026, 14:41:58 | pyUltLogs [INFO] : 
+                    -----------------------------------
+                            Starting Deployment
+                    -----------------------------------
+    
+04/06/2026, 14:41:58 | pyUltLogs [INFO] : Python version - 3.14.2
+04/06/2026, 14:41:58 | pyUltLogs [INFO] : pyChampu Version - 2026.04.03
+04/06/2026, 14:41:58 | pyUltLogs [INFO] : Telethon Version - 1.42.0 [Layer: 216]
+04/06/2026, 14:41:58 | pyUltLogs [INFO] : Champu Version - 2.1.2 [local]
+04/06/2026, 14:42:34 | pyUltLogs [INFO] : Connecting to Redis...
+04/06/2026, 14:42:34 | pyUltLogs [INFO] : Connected to Redis Successfully!
+04/06/2026, 14:42:36 | pyUltLogs [INFO] : Trying to login.
+04/06/2026, 14:42:36 | Telethon.network.mtprotosender [INFO] : Connecting to 149.154.167.91:443/TcpFull...
+04/06/2026, 14:42:37 | Telethon.network.mtprotosender [INFO] : Connection to 149.154.167.91:443/TcpFull complete!
+04/06/2026, 14:42:44 | pyUltLogs [INFO] : Logged in as ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ ㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤㅤ
+04/06/2026, 14:42:44 | pyUltLogs [INFO] : Trying to login.
+04/06/2026, 14:42:44 | Telethon.network.mtprotosender [INFO] : Connecting to 149.154.167.91:443/TcpFull...
+04/06/2026, 14:42:45 | Telethon.network.mtprotosender [INFO] : Connection to 149.154.167.91:443/TcpFull complete!
+04/06/2026, 14:42:51 | pyUltLogs [INFO] : Logged in as @ItsMyUserbot
+04/06/2026, 14:42:58 | pyUltLogs [INFO] : Initialising...
+04/06/2026, 14:43:04 | pyUltLogs [INFO] : • Installing Official Plugins || Count : 83 •
+04/06/2026, 14:43:19 | apscheduler.scheduler [INFO] : Adding job tentatively -- it will be properly scheduled when the scheduler starts
+04/06/2026, 14:43:19 | apscheduler.scheduler [INFO] : Adding job tentatively -- it will be properly scheduled when the scheduler starts
+04/06/2026, 14:43:19 | apscheduler.scheduler [INFO] : Added job "close_grp" to job store "default"
+04/06/2026, 14:43:19 | apscheduler.scheduler [INFO] : Added job "open_grp" to job store "default"
+04/06/2026, 14:43:19 | apscheduler.scheduler [INFO] : Scheduler started
+04/06/2026, 14:43:24 | Telethon.client.updates [INFO] : Got difference for channel 3873601540 updates
+04/06/2026, 14:43:38 | pyUltLogs [INFO] : • Installing Addons Plugins || Count : 0 •
+04/06/2026, 14:43:46 | pyUltLogs [INFO] : Took 1m:45s to start •CHAMPU•
+04/06/2026, 14:43:46 | pyUltLogs [INFO] : 
+            ----------------------------------------------------------------------
+                Champu has been deployed! Visit @TheChampu for updates!!
+            ----------------------------------------------------------------------
+    
+04/06/2026, 14:44:00 | Telethon.client.updates [INFO] : Got difference for channel 1841455241 updates
+04/06/2026, 14:46:33 | Telethon.client.updates [INFO] : Got difference for channel 3655192189 updates
+04/06/2026, 14:51:35 | Telethon.client.updates [INFO] : Got difference for channel 1841455241 updates
+04/06/2026, 14:57:59 | Telethon.network.connection.connection [WARNING] : Server closed the connection: [WinError 121] The semaphore timeout period has expired
+04/06/2026, 14:57:59 | Telethon.network.mtprotosender [INFO] : Connection closed while receiving data: [WinError 121] The semaphore timeout period has expired
+04/06/2026, 14:57:59 | Telethon.network.mtprotosender [INFO] : Closing current connection to begin reconnect...
+04/06/2026, 14:57:59 | Telethon.network.connection.connection [INFO] : <class 'OSError'> during disconnect: [WinError 121] The semaphore timeout period has expired
+04/06/2026, 14:57:59 | Telethon.network.mtprotosender [INFO] : Connecting to 149.154.167.91:443/TcpFull...
+04/06/2026, 14:58:09 | Telethon.network.mtprotosender [WARNING] : Attempt 1 at connecting failed: TimeoutError: 
+04/06/2026, 14:58:12 | Telethon.network.mtprotosender [INFO] : Connection to 149.154.167.91:443/TcpFull complete!
+04/06/2026, 15:02:15 | Telethon.network.mtprotosender [INFO] : Disconnecting from 149.154.167.91:443/TcpFull...
+04/06/2026, 15:02:15 | Telethon.network.mtprotosender [INFO] : Disconnection from 149.154.167.91:443/TcpFull complete!
+04/06/2026, 15:02:15 | Telethon.client.telegrambaseclient [ERROR] : Unhandled exception from keepalive_handle after cancelling <class '_asyncio.Task'> (<Task finished name='Task-16' coro=<UpdateMethods._keepalive_loop() done, defined at C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\.venv\Lib\site-packages\telethon\client\updates.py:485> exception=OperationalError('database is locked')>)
+Traceback (most recent call last):
+  File "C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\.venv\Lib\site-packages\telethon\helpers.py", line 176, in _cancel
+    await task
+  File "C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\.venv\Lib\site-packages\telethon\client\updates.py", line 521, in _keepalive_loop
+    await self._save_states_and_entities()
+  File "C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\.venv\Lib\site-packages\telethon\client\telegrambaseclient.py", line 701, in _save_states_and_entities
+    self.session.process_entities(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        types.contacts.ResolvedPeer(None, [types.InputPeerUser(0, self._mb_entity_cache.self_id)], [])
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\.venv\Lib\site-packages\telethon\sessions\sqlite.py", line 301, in process_entities
+    c.executemany(
+    ~~~~~~~~~~~~~^
+        'insert or replace into entities values (?,?,?,?,?,?)', rows)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: database is locked
+04/06/2026, 15:02:16 | Telethon.network.mtprotosender [INFO] : Not disconnecting (already have no connection)
+04/06/2026, 15:02:16 | Telethon.client.telegrambaseclient [ERROR] : Unhandled exception from keepalive_handle after cancelling <class '_asyncio.Task'> (<Task finished name='Task-16' coro=<UpdateMethods._keepalive_loop() done, defined at C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\.venv\Lib\site-packages\telethon\client\updates.py:485> exception=OperationalError('database is locked')>)
+Traceback (most recent call last):
+  File "C:\Users\Shivanshu\Documents\TheChampu.GitHub\ProjectRoot\.venv\Lib\site-packages\telethon\helpers.py", line 176, in _cancel
+    await task
+sqlite3.OperationalError: database is locked

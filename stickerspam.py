@@ -1,4 +1,4 @@
- """
+"""
 ✘ Commands Available -
 
 •`{i}sspam <reply to sticker> <optional- time gap>`

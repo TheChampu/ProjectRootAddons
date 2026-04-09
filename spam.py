@@ -1,4 +1,4 @@
- """
+"""
 ✘ Commands Available -
 • `{i}spam <no of msgs> <your msg>`
   `{i}spam <no of msgs> <reply message>`

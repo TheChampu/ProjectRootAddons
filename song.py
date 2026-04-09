@@ -1,5 +1,3 @@
-
-
 """
 ✘ Commands Available -
 • `{i}lyrics <search query>`

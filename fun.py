@@ -1,4 +1,4 @@
- """
+"""
 ✘ Commands Available
 
 • `{i}joke`

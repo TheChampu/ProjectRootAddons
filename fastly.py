@@ -1,4 +1,4 @@
- """
+"""
 Fasly Bot Cheat.
 
 • `{i}fastly` - On/Off command. 
