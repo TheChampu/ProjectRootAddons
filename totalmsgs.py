@@ -28,4 +28,5 @@ async def _(e):
     except Exception as er:
         return await e.eor(str(er))
     user = await e.client.get_entity(user)
-    await e.eor(f"Total msgs of `{get_display_name(user)}` here = {a.total}")
+    mention = f"[{get_display_name(user)}](tg://user?id={user.id})"
+    await e.eor(f"Total msgs of {mention} here = {a.total}")

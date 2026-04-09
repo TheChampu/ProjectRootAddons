@@ -1,10 +1,3 @@
-# Champu - UserBot
-# Copyright (C) 2021-2026 TheChampu
-#
-# This file is a part of < https://github.com/TheChampu/ProjectRoot/ >
-# PLease read the GNU Affero General Public License in
-# <https://github.com/TheChampu/pyChampu/blob/main/LICENSE>.
-
 import contextlib
 import inspect
 import sys

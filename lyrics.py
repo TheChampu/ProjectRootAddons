@@ -2,9 +2,6 @@
 ✘ Commands Available -
 • `{i}lyrics <search query>`
     get lyrics of song.
-
-• `{i}songs <search query>`
-    alternative song command.
 """
 
 
@@ -266,75 +263,3 @@ async def original(event):
     a7ul = sh1vm["lyrics"]
     await event.client.send_message(event.chat_id, a7ul, reply_to=event.reply_to_msg_id)
     await ab.delete()
-
-
-@champu_cmd(pattern="song ?(.*)")
-async def _(event):
-    champu_bot = event.client
-    args = event.pattern_match.group(1)
-    if not args:
-        return await event.eor("`Enter song name`")
-    okla = await event.eor("`Searching songs...`")
-    try:
-        songs = await _search_songs(args)
-        if not songs:
-            song_url, title, artist = await _fetch_song_details(args)
-            if not song_url:
-                return await okla.eor("`Song not found.`")
-            caption = f"**{title or args}**"
-            if artist:
-                caption += f"\n__{artist}__"
-            await champu_bot.send_file(
-                event.chat_id,
-                song_url,
-                caption=caption,
-                supports_streaming=True,
-            )
-            return await okla.delete()
-
-        songs = songs[:10]
-        picker = await okla.edit(_build_song_list_text(songs), buttons=_build_song_buttons(len(songs)))
-        async with champu_bot.conversation(event.chat_id, timeout=45) as conv:
-            response = await conv.wait_event(
-                events.CallbackQuery(
-                    chats=event.chat_id,
-                    func=lambda q: q.sender_id == event.sender_id
-                    and q.message_id == picker.id
-                    and q.data
-                    and q.data.startswith(b"songsel:"),
-                )
-            )
-        choice = response.data.decode("utf-8").split(":", 1)[1]
-        if choice == "cancel":
-            await response.answer("Cancelled", alert=False)
-            return await picker.edit("`Selection cancelled.`", buttons=None)
-        await response.answer("Selected", alert=False)
-        if not choice.isdigit():
-            return await picker.edit("`Invalid selection.`", buttons=None)
-        index = int(choice)
-        if index < 1 or index > len(songs):
-            return await picker.edit("`Choice out of range.`", buttons=None)
-        selected = songs[index - 1]
-        await picker.edit("`Downloading selected song...`", buttons=None)
-        song_url, title, artist = await _resolve_audio_for_choice(selected)
-        if not song_url:
-            return await picker.edit("`Unable to fetch audio for selected song.`")
-        caption = f"**{title or selected.get('title') or args}**"
-        if artist:
-            caption += f"\n__{artist}__"
-        if selected.get("duration"):
-            caption += f"\n`Duration:` {selected['duration']}"
-        if selected.get("video_url"):
-            caption += f"\n[YouTube Link]({selected['video_url']})"
-        await champu_bot.send_file(
-            event.chat_id,
-            song_url,
-            caption=caption,
-            supports_streaming=True,
-            reply_to=event.reply_to_msg_id,
-        )
-        await picker.delete()
-    except asyncio.TimeoutError:
-        return await okla.edit("`Selection timed out. Run .song again.`")
-    except Exception:
-        return await okla.eor("`Song not found.`")

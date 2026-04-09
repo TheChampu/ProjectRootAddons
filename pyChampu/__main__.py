@@ -1,12 +1,4 @@
-from . import *# Ultroid - UserBot
-# Copyright (C) 2021-2026 TheChampu
-#
-# This file is a part of < https://github.com/TheChampu/ProjectRoot/ >
-# PLease read the GNU Affero General Public License in
-# <https://github.com/TheChampu/pyChampu/blob/main/LICENSE>.
-
 from . import *
-
 
 def main():
     import os

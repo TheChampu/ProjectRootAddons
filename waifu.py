@@ -52,6 +52,8 @@ async def waifu(animu):
         "stickerizerbot",
         f"{finalcall}{(deEmojify(text))}",
     )
+    if not sticcers:
+        return await xx.edit("No stickers found. StickerBot might be down or rate-limited.")
     await sticcers[0].click(
         animu.chat_id,
         reply_to=animu.reply_to_msg_id,

@@ -4,7 +4,6 @@
 ✘ Commands Available
 
 • `{i}kill`
-• `{i}fp`
 
 """
 
@@ -28,14 +27,8 @@ async def _(event):
         "------------------>",
         "------>;(^。^)ノ",
         "(￣ー￣) DEAD",
-        """`Targeted user killed by Headshot😈.😈.😈.😈.😈.😈.😈......`
-        `#Sad_Reacts_Offline`\n""",
+        """`Targeted user killed by Headshot😈.😈.😈.😈.😈.😈.😈......`""",
     ]
     for i in animation_ttl:
         await asyncio.sleep(animation_interval)
         await a.edit(animation_chars[i % 12])
-
-
-@champu_cmd(pattern="fp$")
-async def a(e):
-    await e.eor("🤦‍♂")

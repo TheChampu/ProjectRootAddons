@@ -16,11 +16,6 @@
 • `{i}xo`
     Opens tic tac game only where using inline mode is allowed.
 
-• `{i}wordi`
-    Opens word game only where using inline mode is allowed.
-
-• `{i}gps <name of place>`
-    Shows the desired place in the map.
 """
 
 import random, os
@@ -99,18 +94,3 @@ async def make_logog(ult):
     )
     os.remove(name)
     await msg.delete()
-
-
-Bot = {"gps":"openmap_bot", "wordi":"wordibot"}
-
-@champu_cmd(pattern="(gps|wordi) (.*)")
-async def _map(ult):
-    cmd = ult.pattern_match.group(1)
-    get = ult.pattern_match.group(2)
-    if not get:
-        return await ult.eor(f"Use this command as `{HNDLR}{cmd} <query>`")
-    quer = await ult.client.inline_query(Bot[cmd], get)
-    await quer[0].click(
-        ult.chat_id, reply_to=ult.reply_to_msg_id, silent=True, hide_via=True
-    )
-    await ult.delete()
