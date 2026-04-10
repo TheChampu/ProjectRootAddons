@@ -47,9 +47,8 @@ def main():
     pmbot = udB.get_key("PMBOT")
     manager = udB.get_key("MANAGER")
     addons = udB.get_key("ADDONS") or Var.ADDONS
-    vcbot = udB.get_key("VCBOT") or Var.VCBOT
-    if HOSTED_ON == "okteto":
-        vcbot = False
+    # Keep VCBOT always enabled; no .setdb toggle needed.
+    vcbot = True
 
     if (HOSTED_ON == "termux" or udB.get_key("LITE_DEPLOY")) and udB.get_key(
         "EXCLUDE_OFFICIAL"
