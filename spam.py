@@ -17,28 +17,73 @@
 
 import asyncio
 
+from telethon.tl.custom import Message
+
 from . import *
 
 
-def _spam_reply_payload(reply):
-    if not reply:
-        return None
-    if reply.media:
-        return reply
-    text = (reply.message or reply.raw_text or reply.text or "").strip()
-    if text:
-        return text
-    return reply
-
-
-async def _send_spam_payload(event, payload):
-    if hasattr(payload, "media") and payload.media:
-        return await event.client.send_file(
+async def _send_spam_payload(event, payload, reply_to_id=None):
+    if isinstance(payload, Message):
+        try:
+            if payload.sticker:
+                return await event.client.send_file(
+                    event.chat_id,
+                    payload.media,
+                    reply_to=reply_to_id,
+                )
+            elif payload.media:
+                from telethon.tl.types import (
+                    MessageMediaPoll,
+                    MessageMediaGeo,
+                    MessageMediaGeoLive,
+                    MessageMediaContact,
+                    MessageMediaVenue,
+                    MessageMediaGame,
+                )
+                if isinstance(
+                    payload.media,
+                    (
+                        MessageMediaPoll,
+                        MessageMediaGeo,
+                        MessageMediaGeoLive,
+                        MessageMediaContact,
+                        MessageMediaVenue,
+                        MessageMediaGame,
+                    ),
+                ):
+                    return await event.client.send_message(
+                        event.chat_id,
+                        payload,
+                        reply_to=reply_to_id,
+                    )
+                else:
+                    return await event.client.send_file(
+                        event.chat_id,
+                        payload.media,
+                        caption=payload.message,
+                        formatting_entities=payload.entities,
+                        reply_to=reply_to_id,
+                    )
+            else:
+                return await event.client.send_message(
+                    event.chat_id,
+                    payload.message,
+                    formatting_entities=payload.entities,
+                    reply_to=reply_to_id,
+                    link_preview=False,
+                )
+        except Exception:
+            return await event.client.send_message(
+                event.chat_id,
+                payload,
+                reply_to=reply_to_id,
+            )
+    else:
+        return await event.client.send_message(
             event.chat_id,
-            file=payload.media,
-            caption=(payload.message or payload.raw_text or payload.text or None),
+            payload,
+            reply_to=reply_to_id,
         )
-    return await event.client.send_message(event.chat_id, payload)
 
 
 @champu_cmd(pattern="tspam")
@@ -54,14 +99,19 @@ async def tmeme(e):
 async def spammer(e):
     message = e.text
     reply = await e.get_reply_message() if e.reply_to else None
+    reply_to_id = None
     if e.reply_to:
-        if not len(message.split()) >= 2:
-            return await eod(e, "`Use in Proper Format`")
-        spam_message = _spam_reply_payload(reply)
+        args = message.split(maxsplit=2)
+        if len(args) == 3:
+            spam_message = args[2]
+        else:
+            spam_message = reply
+        reply_to_id = reply.reply_to_msg_id or reply.id
     else:
         if not len(message.split()) >= 3:
             return await eod(e, "`Reply to a Message or Give some Text..`")
         spam_message = message.split(maxsplit=2)[2]
+    
     counter = message.split()[1]
     try:
         counter = int(counter)
@@ -69,7 +119,11 @@ async def spammer(e):
             return await eod(e, "`Use bigspam cmd`")
     except BaseException:
         return await eod(e, "`Use in Proper Format`")
-    tasks = [asyncio.create_task(_send_spam_payload(e, spam_message)) for _ in range(counter)]
+    
+    tasks = [
+        asyncio.create_task(_send_spam_payload(e, spam_message, reply_to_id))
+        for _ in range(counter)
+    ]
     await asyncio.wait(tasks)
     await e.delete()
 
@@ -78,20 +132,29 @@ async def spammer(e):
 async def bigspam(e):
     message = e.text
     reply = await e.get_reply_message() if e.reply_to else None
+    reply_to_id = None
     if e.reply_to:
-        if not len(message.split()) >= 2:
-            return await eod(e, "`Use in Proper Format`")
-        spam_message = _spam_reply_payload(reply)
+        args = message.split(maxsplit=2)
+        if len(args) == 3:
+            spam_message = args[2]
+        else:
+            spam_message = reply
+        reply_to_id = reply.reply_to_msg_id or reply.id
     else:
         if not len(message.split()) >= 3:
             return await eod(e, "`Reply to a Message or Give some Text..`")
         spam_message = message.split(maxsplit=2)[2]
+    
     counter = message.split()[1]
     try:
         counter = int(counter)
     except BaseException:
         return await eod(e, "`Use in Proper Format`")
-    tasks = [asyncio.create_task(_send_spam_payload(e, spam_message)) for _ in range(counter)]
+    
+    tasks = [
+        asyncio.create_task(_send_spam_payload(e, spam_message, reply_to_id))
+        for _ in range(counter)
+    ]
     await asyncio.wait(tasks)
     await e.delete()
 
@@ -99,18 +162,22 @@ async def bigspam(e):
 @champu_cmd(pattern="delayspam ?(.*)")
 async def delayspammer(e):
     reply = await e.get_reply_message() if e.reply_to else None
+    reply_to_id = None
     try:
         args = e.text.split(" ", 3)
         delay = float(args[1])
         count = int(args[2])
         msg = str(args[3])
+        if reply:
+            reply_to_id = reply.reply_to_msg_id or reply.id
     except BaseException:
         if reply:
             try:
                 args = e.text.split()
                 delay = float(args[1])
                 count = int(args[2])
-                msg = _spam_reply_payload(reply)
+                msg = reply
+                reply_to_id = reply.reply_to_msg_id or reply.id
             except BaseException:
                 return await e.edit(
                     f"**Usage :** {HNDLR}delayspam <delay time> <count> <msg/reply>"
@@ -122,7 +189,7 @@ async def delayspammer(e):
     await e.delete()
     try:
         for i in range(count):
-            await _send_spam_payload(e, msg)
+            await _send_spam_payload(e, msg, reply_to_id)
             await asyncio.sleep(delay)
     except Exception as u:
         await e.respond(f"**Error :** `{u}`")
