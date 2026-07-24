@@ -29,6 +29,8 @@ async def searcher(e):
         limit = 5
 
     limit = 99 if limit > 99 else limit
+    chat_id_str = str(e.chat_id)
+    link_chat_id = chat_id_str[4:] if chat_id_str.startswith("-100") else chat_id_str.lstrip("-")
     text, c = "", 0
     async for msg in e.client.iter_messages(
         e.chat_id,
@@ -36,7 +38,7 @@ async def searcher(e):
         limit=limit,
         reverse=bool(e.pattern_match.group(1)),
     ):
-        text += f" [»» {msg.id}](t.me/c/{e.chat.id}/{msg.id})\n"
+        text += f" [»» {msg.id}](t.me/c/{link_chat_id}/{msg.id})\n"
         c += 1
 
     txt = (
