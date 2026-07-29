@@ -8,7 +8,6 @@
 
 from random import choice
 
-from addons.waifu import deEmojify
 
 from . import champu_cmd, get_string
 
@@ -27,7 +26,7 @@ async def nope(doit):
         return await doit.eor(
             "`Sir please give some query to search and download it for you..!`",
         )
-    sticcers = await doit.client.inline_query("Lybot", f"{(deEmojify(ok))}")
+    sticcers = await doit.client.inline_query("Lybot", f"{((ok))}")
     if not sticcers:
         return await a.edit("❌ **No results found for your song query.**")
 
