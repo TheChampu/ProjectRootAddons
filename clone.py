@@ -77,7 +77,11 @@ async def _(event):
     user_bio = replied_user.full_user.about or ""
     await event.client(UpdateProfileRequest(first_name=first_name))
     await event.client(UpdateProfileRequest(last_name=last_name))
-    await event.client(UpdateProfileRequest(about=user_bio))
+    if user_bio:
+        try:
+            await event.client(UpdateProfileRequest(about=user_bio[:70]))
+        except Exception as _bio_err:
+            LOGS.debug(f"Clone bio update note: {_bio_err}")
     if profile_pic:
         pfile = await event.client.upload_file(profile_pic)
         await event.client(UploadProfilePhotoRequest(file=pfile))
