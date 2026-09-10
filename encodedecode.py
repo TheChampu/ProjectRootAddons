@@ -86,7 +86,7 @@ async def ub_encode_addon(event):
             "• <code>.encode &lt;format&gt; &lt;text&gt;</code>\n"
             "• Or reply to any message with <code>.encode</code>\n\n"
             "<b>Supported Formats:</b>\n"
-            "<code>b64</code>, <code>b32</code>, <code>hex</code>, <code>bin</code>, <code>rot13</code>, <code>url</code>, <code>morse</code>",
+            "<code>b64</code>, <code>hex</code>, <code>bin</code>, <code>b32</code>, <code>b85</code>, <code>rot13</code>, <code>atbash</code>, <code>rev</code>, <code>url</code>, <code>morse</code>, <code>hash</code>",
             parse_mode="html",
         )
 
@@ -147,7 +147,7 @@ async def ub_decode_addon(event):
             "• <code>.decode &lt;encoded_text&gt;</code> (Auto-Detect!)\n"
             "• <code>.decode &lt;format&gt; &lt;text&gt;</code> (Manual override)\n"
             "• Or reply to any message with <code>.decode</code>\n\n"
-            "<b>Auto-Supported:</b> Base64, Hex, Binary, Morse, Base32, ROT13, URL",
+            "<b>Auto-Supported:</b> Base64, Hex, Binary, Morse, Base32, Base85, ROT13, Atbash, URL",
             parse_mode="html",
         )
 
